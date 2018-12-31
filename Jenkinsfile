@@ -2,27 +2,39 @@ pipeline {
     agent any
     stages {
         stage('Checkout') {
+	    steps {
             git url: 'https://github.com/basivireddy/java-maven-junit-helloworld.git', credentialsId: 'github-basivireddy', branch: 'master'
-        }
+	    }
+	}
 
         stage('Clean and compile') {
+	    steps {
 	      compile("maven", "compile");
+	    }
 	      }
         
        stage('SonarQube analysis') {
+	       steps {
 		    checkCodeQuality("sonar");
+	       }
        }
 
         stage('Jacoco test') {
+		steps {
 	      jacocotest("maven", "test");
+		}
 	      }
         
         stage('Package') {
+		steps {
 	      build("maven", "package");
+		}
 	}
 
         stage('Push artifacts to Nexus2') {
+		steps {
 	      nexus2("maven");
+		}
 	    }
 
         /* stage('Docker Build and Publish') {
