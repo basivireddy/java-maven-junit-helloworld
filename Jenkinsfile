@@ -27,7 +27,7 @@ pipeline {
         
         stage('Package') {
 		steps {
-	      build("maven", "package");
+	      buildpackage("maven", "package");
 		}
 	}
 
@@ -72,7 +72,7 @@ def jacocotest(mvnVersion, task){
     ])
 }
 
-def build(mvnVersion, task){
+def buildpackage(mvnVersion, task){
 	def mvnHome = tool name: "${mvnVersion}"
 	env.PATH = "${mvnHome}/bin:${env.PATH}"
         sh "mvn -B -f pom.xml ${task}"
