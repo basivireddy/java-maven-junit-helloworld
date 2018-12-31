@@ -21,7 +21,7 @@ pipeline {
 
         stage('Jacoco test') {
 		steps {
-	      jacocotest("maven", "test");
+	      jacocotest("maven", "jacoco:report");
 		}
 	      }
         
@@ -60,13 +60,13 @@ def checkCodeQuality(sonarVersion){
 def jacocotest(mvnVersion, task){
 	def mvnHome = tool name: "${mvnVersion}"
 	env.PATH = "${mvnHome}/bin:${env.PATH}"
-    sh "mvn -B -f pom.xml jacoco:jacoco"
+	sh "mvn -B -f pom.xml ${task}"
      
     publishHTML (target: [
       allowMissing: false,
       alwaysLinkToLastBuild: false,
       keepAll: true,
-      reportDir: 'jacoco',
+      reportDir: 'target/site/jacoco',
       reportFiles: 'index.html',
       reportName: "RCov Report"
     ])
