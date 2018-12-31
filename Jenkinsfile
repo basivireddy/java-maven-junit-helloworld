@@ -81,7 +81,7 @@ def jacocotest(mvnVersion, task){
       allowMissing: false,
       alwaysLinkToLastBuild: false,
       keepAll: true,
-      reportDir: 'site/jacoco/',
+      reportDir: 'target/site/jacoco/',
       reportFiles: 'index.html',
       reportName: ""
       
