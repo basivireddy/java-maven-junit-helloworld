@@ -25,14 +25,14 @@ pipeline {
 	      nexus2("maven");
 	    }
 
-        #stage('Docker Build and Publish') {
-		# buildAndPush('basivireddy', "${env.JOB_NAME}", 'v1');
-        #}
+        /* stage('Docker Build and Publish') {
+	 buildAndPush('basivireddy', "${env.JOB_NAME}", 'v1');
+        }
     
-        #stage ('Final') {
-        #    build job: 'gateway-service-pipeline', wait: false
-        #}      
-
+         stage ('Final') {
+            build job: 'gateway-service-pipeline', wait: false
+        }      
+        */
     }
 }
 def compile(mvnVersion, task){
