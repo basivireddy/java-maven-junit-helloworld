@@ -54,7 +54,7 @@ def compile(mvnVersion, task){
 }
 def checkCodeQuality(sonarVersion){
 	withSonarQubeEnv("${sonarVersion}") { // SonarQube taskId is automatically attached to the pipeline context
-        sh "mvn -B -f pom.xm org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar" 
+        sh "mvn -B -f pom.xm sonar:sonar" 
     }
 }
 def jacocotest(mvnVersion, task){
