@@ -59,6 +59,7 @@
   </dependencies>
 
   <build>
+           <finalName>java-maven-junit-helloworld</finalName>
     <plugins>
 
       <plugin>
