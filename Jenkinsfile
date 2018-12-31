@@ -15,7 +15,7 @@ pipeline {
         
        stage('SonarQube analysis') {
 	       steps {
-		    checkCodeQuality("sonar");
+		    checkCodeQuality("sonarqube 6.7.6");
 	       }
        }
 
