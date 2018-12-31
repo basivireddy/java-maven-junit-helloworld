@@ -69,7 +69,7 @@ def package(mvnVersion){
 def nexus2(mvnVersion, task){
 	def mvnHome = tool name: "${mvnVersion}"
 	env.PATH = "${mvnHome}/bin:${env.PATH}"
-   sh "mvn -B -f pom.xml deploy:deploy-file -DgroupId=com.vimo -DartifactId=java-maven-junit-helloworld -Dversion=2.0-SNAPSHOT -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://10.168.0.2:8081/nexus/content/repositories/snapshots/ -Dfile=target/java-maven-junit-helloworld.jar"
+   sh "mvn -B -f pom.xml deploy:deploy-file -DgroupId=com.vimo -DartifactId=java-maven-junit-helloworld -Dversion=2.0-SNAPSHOT -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://localhost:8081/nexus/content/repositories/snapshots/ -Dfile=target/java-maven-junit-helloworld.jar"
 }
 
 def buildAndPush(registryID, imageName, version){
