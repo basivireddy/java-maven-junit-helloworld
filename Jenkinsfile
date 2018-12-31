@@ -18,8 +18,8 @@ pipeline {
 	      }
         
         stage('Package') {
-	      package("maven", "package");
-	      }
+	      build("maven", "package");
+	}
 
         stage('Push artifacts to Nexus2') {
 	      nexus2("maven");
@@ -60,15 +60,15 @@ def jacocotest(mvnVersion, task){
     ])
 }
 
-def package(mvnVersion){
+def build(mvnVersion){
 	def mvnHome = tool name: "${mvnVersion}"
 	env.PATH = "${mvnHome}/bin:${env.PATH}"
-   sh "mvn -B -f pom.xml ${task}"
+        sh "mvn -B -f pom.xml ${task}"
 }
 
 def nexus2(mvnVersion, task){
-	def mvnHome = tool name: "${mvnVersion}"
-	env.PATH = "${mvnHome}/bin:${env.PATH}"
+   def mvnHome = tool name: "${mvnVersion}"
+   env.PATH = "${mvnHome}/bin:${env.PATH}"
    sh "mvn -B -f pom.xml deploy:deploy-file -DgroupId=com.vimo -DartifactId=java-maven-junit-helloworld -Dversion=2.0-SNAPSHOT -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://localhost:8081/nexus/content/repositories/snapshots/ -Dfile=target/java-maven-junit-helloworld.jar"
 }
 
