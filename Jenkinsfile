@@ -18,7 +18,12 @@ pipeline {
 		    checkCodeQuality("sonarqube 6.7.6");
 	       }
        }
-
+        
+	stage('coberturatest test') {
+		steps {
+	      coberturatest("maven", "cobertura:cobertura");
+		}
+	}
         stage('Jacoco test') {
 		steps {
 	      jacocotest("maven", "jacoco:report");
@@ -57,6 +62,16 @@ def checkCodeQuality(sonarVersion){
         sh "mvn -B -f pom.xml sonar:sonar" 
     }
 }
+
+
+def coberturatest(mvnVersion, task){
+	def mvnHome = tool name: "${mvnVersion}"
+	env.PATH = "${mvnHome}/bin:${env.PATH}"
+	sh "mvn -B -f pom.xml ${task}"
+     
+    
+}
+
 def jacocotest(mvnVersion, task){
 	def mvnHome = tool name: "${mvnVersion}"
 	env.PATH = "${mvnHome}/bin:${env.PATH}"
@@ -64,9 +79,9 @@ def jacocotest(mvnVersion, task){
      
     publishHTML (target: [
       allowMissing: false,
-      alwaysLinkToLastBuild: false,
+      alwaysLinkToLastBuild: true,
       keepAll: true,
-      reportDir: 'target/site/jacoco',
+      reportDir: 'target/site/jacoco/',
       reportFiles: 'index.html',
       reportName: "RCov Report"
     ])
