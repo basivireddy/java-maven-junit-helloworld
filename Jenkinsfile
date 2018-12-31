@@ -79,10 +79,11 @@ def jacocotest(mvnVersion, task){
      
     publishHTML (target: [
       allowMissing: false,
-      alwaysLinkToLastBuild: true,
+      alwaysLinkToLastBuild: false,
       keepAll: true,
-      reportDir: 'target/site/jacoco/',
-      reportFiles: 'index.html'
+      reportDir: 'site/jacoco/',
+      reportFiles: 'index.html',
+      reportName: ""
       
     ])
 }
